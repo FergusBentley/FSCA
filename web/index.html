@@ -1,0 +1,132 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Lexicon</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/tree.css" />
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-4 bg-dark text-light">
+                <h2>Language Families</h2>
+                <ul class="tree">
+                    <li>
+                        <span>Proto-Germanic</span>
+                        <ul>
+                            <li>Istvaeonic</li>
+                            <li>
+                                <span>Ingvaeonic</span>
+                                <ul>
+                                    <li>Old English</li>
+                                    <li>Old Frisian</li>
+                                    <li>Old Saxon</li>
+                                    <li>
+                                        <span>Old Thjudesk</span>
+                                        <ul>
+                                            <li>
+                                                <span>Thjudesk</span>
+                                                <ul>
+                                                    <li>Dutsk</li>
+                                                    <li>Czudsk</li>
+                                                    <li>Thedish</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-8 bg-dark text-light">
+                <h2>Test</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer bg-dark text-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-xl-8">
+                    <input id="timeline" type="text"
+                                       data-slider-id = 'timelineSlider'
+                                     data-slider-step = "1"
+                                    data-slider-value = "500"
+                                    data-slider-ticks = "[-500, -300, -50, 0, 100, 350, 500, 800, 1100]"
+                        data-slider-ticks-snap-bounds = "30"
+                    />
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="lib/jquery-csv.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="js/gui/tree.js"></script>
+
+    <script>
+
+        let values = [], ticks = [], tickLabels = [], tickString, tickLabelString, minValue, maxValue, diff;
+
+        values = [-500, -300, -50, 0, 100, 350, 500, 800, 1100];
+
+        minValue = Math.min(...values);
+        maxValue = Math.max(...values);
+
+        diff = maxValue - minValue;
+
+        for (var i = 0; i < values.length; i++) {
+            ticks[i] = Math.round(((values[i] - minValue) / diff) * 100);
+            tickLabels[i] = Math.abs(values[i]) + (values[i] < 0 ? " BC" : (values[i] === 0 ? "" : " AD"));
+        }
+
+        tickString = `["${ ticks.join('", "') }"]`;
+        tickLabelString = `["${ tickLabels.join('", "') }"]`;
+
+        $('#timeline').attr('data-slider-min', minValue)
+                      .attr('data-slider-max', maxValue)
+                      .attr('data-slider-ticks', tickString);
+
+        $('#timeline').slider({
+            formatter: function(value) {
+                return 'Current value: ' + value;
+            },
+            ticks_snap_bounds: 30,
+            ticks_tooltip: true,
+            step: 1
+        });
+
+        $('#timeline').bind('slide', function(evt){
+            console.log(evt.value);
+        });
+    </script>
+
+    <script src="js/sca.js"></script>
+
+</body>
+
+</html>

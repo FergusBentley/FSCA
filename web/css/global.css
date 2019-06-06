@@ -1,0 +1,58 @@
+
+* {
+    --colour-primary: #ffab00;
+    --colour-secondary: #ffd740;
+    --colour-muted: #ffecb3;
+
+
+    -webkit-border-radius: 0 !important;
+       -moz-border-radius: 0 !important;
+            border-radius: 0 !important;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    line-height: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#timelineSlider {
+    width: 100%;
+}
+
+#timelineSlider .slider-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#timelineSlider .slider-tick {
+    background: var(--colour-muted);
+}
+
+#timelineSlider .slider-selection {
+    background: var(--colour-muted);
+}
+
+#timelineSlider .slider-tick.in-selection {
+    background: var(--colour-secondary);
+}
+
+#timelineSlider .slider-tick:not(.in-selection) {
+    height: 10px;
+    width: 10px;
+    top: 5px;
+    margin-left: -5px;
+}
+
+#timelineSlider .slider-handle {
+    background: var(--colour-primary);
+}
