@@ -1,25 +1,39 @@
 // Setup timeline slider
 $(function(){
-    let values = [], ticks = [], tickLabels = [], tickString, tickLabelString, minValue, maxValue, diff;
 
-    values = [-500, -300, -50, 0, 100, 350, 500, 800, 1100];
+    updateTimelineSlider();
 
-    minValue = Math.min(...values);
-    maxValue = Math.max(...values);
+    $('#timeline').bind('slide', function(evt){
+        let ticks = JSON.parse($('#timeline').attr('data-slider-ticks'));
+        let tickLabels = JSON.parse($('#timeline').attr('data-slider-tick-labels'));
+        let i = ticks.indexOf(evt.value + "");
+        $('#timeline-value').html(tickLabels[i]);
+    });
+});
 
-    diff = maxValue - minValue;
+function updateTimelineSlider() {
+    // Will be fetched based on the selected language
+    let values = [-500, -300, -50, 0, 100, 350, 500, 800, 1100];
 
+    let minValue = Math.min(...values);
+    let maxValue = Math.max(...values);
+
+    let diff = maxValue - minValue;
+
+    let ticks = [], tickLabels = [];
     for (var i = 0; i < values.length; i++) {
         ticks[i] = Math.round(((values[i] - minValue) / diff) * 100);
         tickLabels[i] = Math.abs(values[i]) + (values[i] < 0 ? " BC" : (values[i] === 0 ? "" : " AD"));
     }
 
-    tickString = `["${ ticks.join('", "') }"]`;
-    tickLabelString = `["${ tickLabels.join('", "') }"]`;
+    // Convert arrays to HTML attribute strings
+    let tickString = `["${ ticks.join('", "') }"]`;
+    let tickLabelString = `["${ tickLabels.join('", "') }"]`;
 
     $('#timeline').attr('data-slider-min', minValue)
                   .attr('data-slider-max', maxValue)
-                  .attr('data-slider-ticks', tickString);
+                  .attr('data-slider-ticks', tickString)
+                  .attr('data-slider-tick-labels', tickLabelString);
 
     $('#timeline').slider({
         formatter: function(value) {
@@ -29,8 +43,4 @@ $(function(){
         ticks_tooltip: true,
         step: 1
     });
-
-    $('#timeline').bind('slide', function(evt){
-        console.log(evt.value);
-    });
-});
+}
