@@ -3,6 +3,8 @@
     --colour-primary: #ffab00;
     --colour-secondary: #ffd740;
     --colour-muted: #ffecb3;
+    --colour-bg-dark: #343a40;
+    --colour-bg-dark-border: #545E66;
 
 
     -webkit-border-radius: 0 !important;
@@ -12,9 +14,16 @@
 
 html, body {
     height: 100%;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+}
+
+.fill-height {
+    min-height: 100%;
+    height:auto !important;
+    height: 100%;
+}
+
+.main .col {
+    border-right: 1px solid var(--colour-bg-dark-border);
 }
 
 .footer {
@@ -24,6 +33,7 @@ html, body {
     line-height: 60px;
     padding-top: 20px;
     padding-bottom: 20px;
+    border-top: 1px solid  var(--colour-bg-dark-border);
 }
 
 #timelineSlider {
