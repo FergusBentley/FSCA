@@ -22,6 +22,7 @@
 
             <div class="col col-md-2 bg-dark text-light">
                 <h2>Languages</h2>
+                <hr />
                 <ul class="tree">
                     <li>
                         <span>Proto-Germanic</span>
@@ -55,6 +56,7 @@
 
             <div class="col col-md-2 bg-dark text-light">
                 <h2>Dictionary</h2>
+                <hr />
                 <ul>
                     <li> tribe - /ˈθeu.ðɔː/ </li>
                     <li> thjudesk - /ˈθiu.ðis.kaz/ </li>
@@ -66,8 +68,30 @@
                 </ul>
             </div>
 
-            <div class="col col-md-8 bg-dark text-light">
-                <h2>Details</h2>
+            <div id="col-details" class="col col-md-8 bg-dark text-light">
+                <div id="language-details">
+                    <h2>{{name}}</h2>
+                    <hr />
+                    <div>Ancestors: {{#ancestors}}<span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{name}}</span>{{/ancestors}}</div>
+                    <div>Children: {{#children}}<span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{name}}</span>{{/children}}</div>
+                </div>
+
+                <div id="words-details">
+                    {{#words}}
+                        <div class="bg-secondary text-dark word-details">
+                            <h2>{{gloss}}</h2>
+                            <hr />
+                            <h3>Etymology</h3>
+                            <p>{{etymology}}</p>
+                            <h3>Pronunciation</h3>
+                            <p>{{pronunciation}}</p>
+                            <h3>Definition</h3>
+                            <p>{{definition}}</p>
+                            <h3>Forms</h3>
+                            <p>{{forms}}</p>
+                        </div>
+                    {{/words}}
+                </div>
             </div>
 
         </div>
@@ -86,11 +110,11 @@
                 <div class="col-md-2"></div>
                 <div class="col-xl-8">
                     <input id="timeline" type="text"
-                                       data-slider-id = 'timelineSlider'
-                                     data-slider-step = "1"
-                                    data-slider-value = "500"
-                                    data-slider-ticks = "[-500, -300, -50, 0, 100, 350, 500, 800, 1100]"
-                        data-slider-ticks-snap-bounds = "30"
+                    data-slider-id = 'timelineSlider'
+                    data-slider-step = "1"
+                    data-slider-value = "500"
+                    data-slider-ticks = "[-500, -300, -50, 0, 100, 350, 500, 800, 1100]"
+                    data-slider-ticks-snap-bounds = "30"
                     />
                 </div>
                 <div class="col-md-2"></div>
@@ -102,13 +126,19 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="lib/jquery-csv.min.js"></script>
 
+    <!-- Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <script src="js/gui/tree.js"></script>
+    <!-- Other libraries-->
     <script src="js/gui/timelineSlider.js"></script>
+    <script src="lib/mustache.min.js"></script>
 
+    <!-- GUI/Layout scripts -->
+    <script src="js/gui/init_render.js"></script>
+
+    <!-- SCA scripts -->
     <script src="js/sca.js"></script>
 
 </body>

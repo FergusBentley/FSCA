@@ -14,7 +14,6 @@
 
 html, body {
     height: 100%;
-    padding-bottom: 50px;
 }
 
 .fill-height {
@@ -25,6 +24,28 @@ html, body {
 
 .main .col {
     border-right: 1px solid var(--colour-bg-dark-border);
+    padding-top: 10px;
+
+    max-height: 100%;
+    overflow-x: none;
+    overflow-y: scroll;
+}
+
+.main .col::-webkit-scrollbar {
+    display: none;
+}
+
+.word-details {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.word-details:last-child {
+    margin-bottom: 120px;
+}
+
+.bg-dark hr, .bg-secondary hr {
+  background-color: var(--colour-secondary);
 }
 
 .footer {
