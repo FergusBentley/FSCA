@@ -3,6 +3,8 @@
     --colour-primary: #ffab00;
     --colour-secondary: #ffd740;
     --colour-muted: #ffecb3;
+    --colour-accent: #00BFA5;
+    --colour-accent-muted: #26A69A;
     --colour-bg-dark: #343a40;
     --colour-bg-dark-border: #545E66;
 
@@ -78,6 +80,10 @@ html, body {
 
 #timelineSlider .slider-tick {
     background: var(--colour-muted);
+    height: 10px;
+    width: 10px;
+    top: 5px;
+    margin-left: -5px;
 }
 
 #timelineSlider .slider-selection {
@@ -88,13 +94,8 @@ html, body {
     background: var(--colour-secondary);
 }
 
-#timelineSlider .slider-tick:not(.in-selection) {
-    height: 10px;
-    width: 10px;
-    top: 5px;
-    margin-left: -5px;
-}
-
 #timelineSlider .slider-handle {
     background: var(--colour-primary);
+    width: 10px;
+    margin-left: -5px;
 }

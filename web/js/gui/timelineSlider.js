@@ -4,10 +4,8 @@ $(function(){
     updateTimelineSlider();
 
     $('#timeline').bind('slide', function(evt){
-        let ticks = JSON.parse($('#timeline').attr('data-slider-ticks'));
-        let tickLabels = JSON.parse($('#timeline').attr('data-slider-tick-labels'));
-        let i = ticks.indexOf(evt.value + "");
-        $('#timeline-value').html(tickLabels[i]);
+        let tickDict = JSON.parse($('#timeline').attr('data-slider-tick-dict'));
+        $('#timeline-value').html(tickDict[evt.value]);
     });
 });
 
@@ -23,24 +21,32 @@ function updateTimelineSlider() {
     let ticks = [], tickLabels = [];
     for (var i = 0; i < values.length; i++) {
         ticks[i] = Math.round(((values[i] - minValue) / diff) * 100);
-        tickLabels[i] = Math.abs(values[i]) + (values[i] < 0 ? " BC" : (values[i] === 0 ? "" : " AD"));
+        tickLabels[i] = Math.abs(values[i]) + (values[i] < 0 ? " BCE" : (values[i] === 0 ? "" : " CE"));
     }
 
-    // Convert arrays to HTML attribute strings
-    let tickString = `["${ ticks.join('", "') }"]`;
-    let tickLabelString = `["${ tickLabels.join('", "') }"]`;
+    // Allows lookup of labels based on value
+    let tickDictString = "{";
+    for (let i = 0; i < values.length; i++) {
+        tickDictString += `"${ ticks[i] }": "${ tickLabels[i] }"`;
+        if (i < values.length - 1) tickDictString += ", ";
+    }
+    tickDictString += "}";
 
-    $('#timeline').attr('data-slider-min', minValue)
-                  .attr('data-slider-max', maxValue)
-                  .attr('data-slider-ticks', tickString)
-                  .attr('data-slider-tick-labels', tickLabelString);
+    $('#timeline').attr('data-slider-tick-dict', tickDictString);
 
     $('#timeline').slider({
+        id: "timelineSlider",
+        min: minValue,
+        max: maxValue,
+        ticks: ticks,
+        step: 1,
+        value: 100,
+        ticks_snap_bounds: 100,
         formatter: function(value) {
-            return 'Current value: ' + value;
+            return "" + Math.abs(value) + (value < 0 ? " BCE" : (values[i] === 0 ? "" : " CE"))
         },
-        ticks_snap_bounds: 30,
-        ticks_tooltip: true,
-        step: 1
     });
+
+
+    $('#timeline-value').html(tickLabels[tickLabels.length - 1]);
 }
