@@ -15,11 +15,31 @@ ul.tree ul,
     padding: 0;
 }
 
-/* Style the caret/arrow */
+/* Style the tree item */
+.tree li {
+    color: darkgrey;
+}
+
+
 .tree span {
-    cursor: pointer;
     user-select: none; /* Prevent text selection */
     margin-left: -14px;
+    cursor: pointer;
+}
+
+.tree a {
+    color: white;
+    cursor: pointer;
+}
+
+/* Highlight on hover */
+.tree span:hover {
+    color: lightgrey;
+}
+
+.tree a:hover {
+    color: var(--colour-accent);
+    text-decoration: none;
 }
 
 /* Create the caret/arrow with a unicode, and style it */
@@ -27,6 +47,7 @@ ul.tree ul,
     position: relative;
     left: -6px;
     content: "⮞";
+    color: white;
     display: inline-block;
 }
 
