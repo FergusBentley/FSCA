@@ -60,9 +60,13 @@ html, body {
     bottom: 0px;
     width: 100%;
     line-height: 60px;
+    border-top: 1px solid  var(--colour-dark-border);
+}
+
+.footer .col {
+    border-right: 1px solid var(--colour-dark-border);
     padding-top: 20px;
     padding-bottom: 20px;
-    border-top: 1px solid  var(--colour-dark-border);
 }
 
 .centre-block {
@@ -73,6 +77,11 @@ html, body {
     height:fit-content;
 
     margin-top: -20px;
+}
+
+.subtle {
+    color: var(--colour-med-light);
+    font-style: italic;
 }
 
 
@@ -126,6 +135,21 @@ html, body {
 #dictionary li.selected > .tickbox {
     display: block;
     background-color: var(--colour-accent);
+    color: white;
+}
+
+#info {
+    font-size: 16px;
+    line-height: 1.5em;
+    font-family: monospace;
+}
+
+#info a {
+    color: var(--colour-med-light);
+    text-decoration: underline;
+}
+
+#info a:hover {
     color: white;
 }
 

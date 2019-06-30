@@ -45,11 +45,17 @@
                         {{#ancestors}}
                             <span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{longName}}</span>
                         {{/ancestors}}
+                        {{^ancestors}}
+                            <span class="subtle">none</span>
+                        {{/ancestors}}
                     </div>
                     <div>
                         Children:
                         {{#children}}
                             <span class="lang-link" data-lang="{{name}}">&nbsp;|&nbsp;{{longName}}</span>
+                        {{/children}}
+                        {{^children}}
+                            <span class="subtle">none</span>
                         {{/children}}
                     </div>
                 </div>
@@ -82,21 +88,60 @@
     <footer class="footer bg-dark text-light">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-5"></div>
-                <div class="col-md-2">
-                    <div class="timeline-label centre-block">Time: <span id="timeline-value"></span></div>
+                <div class="col col-md-2 text-center" id="info">
+                    <div>
+                        <b>FSCA</b> by fergus
+                    </div>
+                    <div>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                        <a style="text-decoration: none; cursor: pointer;" onclick="$('#licenseModal').modal()">(?)</a>
+                    </div>
+                    <div>
+                        <a href="https://twitter.com/fergcb">twitter</a>
+                        | <a href="https://github.com/FergusBentley">github</a>
+                    </div>
+
                 </div>
-                <div class="col-sm-5"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-xl-8">
-                    <input id="timeline" type="text" />
+                <div class="col col-md" id="timelineContainer">
+                    <div class="row">
+                        <div class="col-sm-5"></div>
+                        <div class="col-md-2">
+                            <div class="timeline-label centre-block">Time: <span id="timeline-value"></span></div>
+                        </div>
+                        <div class="col-sm-5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-xl-8">
+                            <input id="timeline" type="text" />
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
                 </div>
-                <div class="col-md-2"></div>
             </div>
         </div>
     </footer>
+
+    <div class="modal" tabindex="-1" role="dialog" id="licenseModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">License</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+                    <br />
+                    <br />
+                    <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">FSCA</span>
+                     by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Fergus Bentley</span>
+                     is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
