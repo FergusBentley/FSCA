@@ -32,7 +32,7 @@
                 <h2>Dictionary</h2>
                 <hr />
                 <ul id="dictionary">
-                    
+
                 </ul>
             </div>
 
@@ -40,8 +40,18 @@
                 <div id="language-details">
                     <h2>{{name}}</h2>
                     <hr />
-                    <div>Ancestors: {{#ancestors}}<span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{name}}</span>{{/ancestors}}</div>
-                    <div>Children: {{#children}}<span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{name}}</span>{{/children}}</div>
+                    <div>
+                        Ancestors:
+                        {{#ancestors}}
+                            <span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{longName}}</span>
+                        {{/ancestors}}
+                    </div>
+                    <div>
+                        Children:
+                        {{#children}}
+                            <span class="lang-link" data-lang="{{name}}">&nbsp;|&nbsp;{{longName}}</span>
+                        {{/children}}
+                    </div>
                 </div>
 
                 <div id="words-details">
@@ -58,7 +68,7 @@
                             {{#has_forms}}
                             <h3>Forms</h3>
                             <div id="word-forms-container">
-                                {{forms}}
+                                {{{forms}}}
                             </div>
                             {{/has_forms}}
                         </div>

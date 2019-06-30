@@ -3,13 +3,13 @@ class Word {
     constructor(gloss, syllables, forms) {
         this.gloss = gloss;
         this.syllables = syllables;
-        this.forms = forms || {};
+        this.forms = forms;
     }
 
     enumerateForms(p) {
         let path = p || [];
         let fs = {};
-        if (Object.keys(this.forms).length > 0) {
+        if (this.forms != undefined) {
             for (var key in this.forms) {
                 if (this.forms.hasOwnProperty(key)) {
                     let np = path.concat([key]);

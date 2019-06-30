@@ -32,4 +32,8 @@ class Dictionary {
         }
         return word;
     }
+
+    contains(name) {
+        return this.search(name) != undefined;
+    }
 }

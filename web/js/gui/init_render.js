@@ -1,4 +1,5 @@
-let selectedLanguage, selectedWords;
+let selectedLanguage = undefined,
+    selectedWords = [];
 let languageTemplate, wordTemplate;
 let rootLanguage;
 
@@ -22,9 +23,21 @@ function updateLanguages() {
 
 function updateSelectedLanguage() {
     let name = window.location.hash.substring(1);
-    console.log(name);
     if (rootLanguage.shortName == name) selectedLanguage = rootLanguage;
     else selectedLanguage = rootLanguage.findChild(name);
+    if (selectedLanguage != undefined) {
+        $("#language-details").show();
+        languageHash = {
+            name: selectedLanguage.longName,
+            code: selectedLanguage.shortName,
+            ancestors: selectedLanguage.getAncestors(),
+            children: selectedLanguage.children
+        };
+        $("#language-details").html(Mustache.render(languageTemplate, languageHash));
+        selectedWords = selectedWords.filter(w => selectedLanguage.dictionary.contains(w))
+        renderWordDetails();
+    }
+    else $("#language-details").hide();
 }
 
 // Make dictionary words selectable
@@ -35,7 +48,9 @@ function updateDictionary() {
     if (selectedLanguage != null) {
         let words = Object.values(selectedLanguage.dictionary.words);
         for (const word of words) {
-            $('#dictionary').append($(`<li>${word.gloss}</li>`));
+            let entry = $(`<li>${word.gloss}</li>`);
+            if (selectedWords.includes(word.gloss)) entry.addClass("selected");
+            $('#dictionary').append(entry);
         }
     }
 
@@ -53,7 +68,7 @@ function updateDictionary() {
             $(this).addClass("selected");
             selectedWords = [val];
         }
-        console.log(selectedWords);
+        renderWordDetails();
     });
 
     $('#dictionary > li > .tickbox').click(function(e){
@@ -63,14 +78,25 @@ function updateDictionary() {
         if (selectedWords.includes(val))
             selectedWords.splice(selectedWords.indexOf(val), 1);
         else selectedWords.push(val);
-        console.log(selectedWords);
+        renderWordDetails();
     });
 }
 
-// Render the info of the selected language and words
-function renderDetails() {
-    $("#language-details").html(Mustache.render(languageTemplate, selectedLanguage));
-    $("#word-details").html(Mustache.render(wordTemplate, selectedWords));
+function renderWordDetails() {
+    $("#words-details").empty();
+    if (selectedWords.length > 0) {
+        let words = selectedWords.map(w => selectedLanguage.dictionary.search(w));
+        let wordsHash = {
+            words: words.map(w => ({
+                gloss: w.gloss,
+                etymology: w.etymology,
+                definition: w.definition,
+                has_forms: w.forms != undefined,
+                forms: w.tabulateForms()
+            }))
+        };
+        $("#words-details").append($(Mustache.render(wordTemplate, wordsHash)));
+    }
 }
 
 
@@ -79,5 +105,7 @@ $(function(){
     updateLanguages();
     updateDictionary();
     languageTemplate = $("#language-details").html();
-    wordTemplate = $("#word-details").html();
+    wordTemplate = $("#words-details").html();
+    updateSelectedLanguage();
+    renderWordDetails();
 });
