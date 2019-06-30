@@ -1,11 +1,15 @@
 class Language {
-    constructor(sName, lName, children) {
+    constructor(sName, lName, parent, ref) {
         this.shortName = sName;
         this.longName = lName;
-        this.children = children || [];
-        this.parent = null;
-        this.children.forEach(l => l.parent = this);
+        this.children = [];
+        this.parent = parent || null;
+        this.isReference = ref || false;
         this.dictionary = new Dictionary();
+        if (this.parent != null) {
+            this.dictionary.words = Object.assign({}, this.parent.dictionary.words);
+            this.parent.children.push(this);
+        }
     }
 
     getAncestors() {
@@ -13,10 +17,21 @@ class Language {
         return this.parent.getAncestors().concat([this.parent]);
     }
 
+    findChild(name) {
+        for (const c of this.children) {
+            if (c.shortName === name) return c;
+            else {
+                let found = c.findChild(name);
+                if (found != undefined) return found;
+            }
+        }
+        return undefined;
+    }
+
     asTree() {
         let res = "<li>";
         let tag = this.longName;
-        if (!this.dictionary.isEmpty())
+        if (!this.isReference)
             tag = `<a href="#${this.shortName}">${tag}</a>`;
         if (this.children.length > 0) {
             res += `<span>${tag}</span>`;
