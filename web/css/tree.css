@@ -17,12 +17,12 @@ ul.tree ul,
 
 /* Style the tree item */
 .tree li {
-    color: darkgrey;
+    cursor: default;
+    color: var(--colour-med-light);
 }
 
 
 .tree span {
-    user-select: none; /* Prevent text selection */
     margin-left: -14px;
     cursor: pointer;
 }

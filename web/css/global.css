@@ -5,8 +5,11 @@
     --colour-muted: #ffecb3;
     --colour-accent: #00BFA5;
     --colour-accent-muted: #26A69A;
-    --colour-bg-dark: #343a40;
-    --colour-bg-dark-border: #545E66;
+    --colour-dark: #343a40;
+    --colour-dark-border: #545E66;
+    --colour-med: #57626b;
+    --colour-med-light: #828f9c;
+    --colour-light: #d5dbe0;
 
 
     -webkit-border-radius: 0 !important;
@@ -25,7 +28,7 @@ html, body {
 }
 
 .main .col {
-    border-right: 1px solid var(--colour-bg-dark-border);
+    border-right: 1px solid var(--colour-dark-border);
     padding-top: 10px;
 
     max-height: 100%;
@@ -40,13 +43,15 @@ html, body {
 .word-details {
   margin-top: 20px;
   padding: 20px;
+  background-color: var(--colour-med);
+  color: var(--colour-light);
 }
 
 .word-details:last-child {
     margin-bottom: 120px;
 }
 
-.bg-dark hr, .bg-secondary hr {
+.bg-dark hr {
   background-color: var(--colour-secondary);
 }
 
@@ -57,7 +62,7 @@ html, body {
     line-height: 60px;
     padding-top: 20px;
     padding-bottom: 20px;
-    border-top: 1px solid  var(--colour-bg-dark-border);
+    border-top: 1px solid  var(--colour-dark-border);
 }
 
 .centre-block {
@@ -71,6 +76,12 @@ html, body {
 }
 
 
+#dictionary:empty::before {
+    color: var(--colour-med-light);
+    font-style: italic;
+    content: "No Language Selected";
+}
+
 #dictionary li {
     position: relative;
     cursor: pointer;
@@ -83,7 +94,7 @@ html, body {
 
 #dictionary li:hover {
     color: var(--colour-accent);
-    background-color: var(--colour-bg-dark-border);
+    background-color: var(--colour-dark-border);
 }
 
 #dictionary li > .tickbox {
@@ -118,7 +129,6 @@ html, body {
     color: white;
 }
 
-
 #timelineSlider {
     width: 100%;
 }
@@ -147,4 +157,20 @@ html, body {
     background: var(--colour-primary);
     width: 10px;
     margin-left: -5px;
+}
+
+
+table.word-forms {
+    background-color: var(--colour-light);
+}
+
+table.word-forms td,
+table.word-forms th {
+    border: 1px solid var(--colour-dark-border);
+    padding: 3px 7px;
+}
+
+table.word-forms th {
+    background-color: var(--colour-med-light);
+    font-weight: bolder;
 }

@@ -23,34 +23,8 @@
             <div class="col col-md-2 bg-dark text-light">
                 <h2>Languages</h2>
                 <hr />
-                <ul class="tree">
-                    <li>
-                        <span><a href="#">Proto-Germanic</a></span>
-                        <ul>
-                            <li>Istvaeonic</li>
-                            <li>
-                                <span>Ingvaeonic</span>
-                                <ul>
-                                    <li>Old English</li>
-                                    <li>Old Frisian</li>
-                                    <li>Old Saxon</li>
-                                    <li>
-                                        <span><a href="#">Old Thjudesk</a></span>
-                                        <ul>
-                                            <li>
-                                                <span><a href="#">Thjudesk</a></span>
-                                                <ul>
-                                                    <li><a href="#">Dutsk</a></li>
-                                                    <li><a href="#">Czudsk</a></li>
-                                                    <li><a href="#">Thedish</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                <ul id="languages" class="tree">
+
                 </ul>
             </div>
 
@@ -58,13 +32,7 @@
                 <h2>Dictionary</h2>
                 <hr />
                 <ul id="dictionary">
-                    <li> tribe </li>
-                    <li> thjudesk </li>
-                    <li> DEM </li>
-                    <li> sea </li>
-                    <li> PROX.DEM </li>
-                    <li> shallow </li>
-                    <li> scaudsau </li>
+                    
                 </ul>
             </div>
 
@@ -78,7 +46,7 @@
 
                 <div id="words-details">
                     {{#words}}
-                        <div class="bg-secondary text-dark word-details">
+                        <div class="word-details">
                             <h2>{{gloss}}</h2>
                             <hr />
                             <h3>Etymology</h3>
@@ -87,8 +55,12 @@
                             <p>{{pronunciation}}</p>
                             <h3>Definition</h3>
                             <p>{{definition}}</p>
+                            {{#has_forms}}
                             <h3>Forms</h3>
-                            <p>{{forms}}</p>
+                            <div id="word-forms-container">
+                                {{forms}}
+                            </div>
+                            {{/has_forms}}
                         </div>
                     {{/words}}
                 </div>
@@ -129,11 +101,16 @@
     <script src="js/gui/timelineSlider.js"></script>
     <script src="lib/mustache.min.js"></script>
 
-    <!-- GUI/Layout scripts -->
-    <script src="js/gui/init_render.js"></script>
 
     <!-- SCA scripts -->
-    <script src="js/sca.js"></script>
+    <script src="js/sca/class.Word.js"></script>
+    <script src="js/sca/class.Dictionary.js"></script>
+    <script src="js/sca/class.Language.js"></script>
+    <script src="js/sca/sca.js"></script>
+
+
+    <!-- GUI/Layout scripts -->
+    <script src="js/gui/init_render.js"></script>
 
 </body>
 
