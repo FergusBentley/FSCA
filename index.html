@@ -1,0 +1,172 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>FSCA | Fergus' Sound Change Applier</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/tree.css" />
+</head>
+
+<body>
+
+    <div class="container-fluid fill-height">
+        <div class="row fill-height main">
+
+            <div class="col col-md-2 bg-dark text-light">
+                <h2>Languages</h2>
+                <hr />
+                <ul id="languages" class="tree">
+
+                </ul>
+            </div>
+
+            <div class="col col-md-2 bg-dark text-light">
+                <h2>Dictionary</h2>
+                <hr />
+                <ul id="dictionary">
+
+                </ul>
+            </div>
+
+            <div id="col-details" class="col col-md-8 bg-dark text-light">
+                <div id="language-details">
+                    <h2>{{name}}</h2>
+                    <hr />
+                    <div>
+                        Ancestors:
+                        {{#ancestors}}
+                            <span class="lang-link" data-lang="{{name}}">&nbsp;&gt;&nbsp;{{longName}}</span>
+                        {{/ancestors}}
+                        {{^ancestors}}
+                            <span class="subtle">none</span>
+                        {{/ancestors}}
+                    </div>
+                    <div>
+                        Children:
+                        {{#children}}
+                            <span class="lang-link" data-lang="{{name}}">&nbsp;|&nbsp;{{longName}}</span>
+                        {{/children}}
+                        {{^children}}
+                            <span class="subtle">none</span>
+                        {{/children}}
+                    </div>
+                </div>
+
+                <div id="words-details">
+                    {{#words}}
+                        <div class="word-details">
+                            <h2>{{gloss}}</h2>
+                            <hr />
+                            <h3>Etymology</h3>
+                            <p>{{etymology}}</p>
+                            <h3>Pronunciation</h3>
+                            <p>{{pronunciation}}</p>
+                            <h3>Definition</h3>
+                            <p>{{definition}}</p>
+                            {{#has_forms}}
+                            <h3>Forms</h3>
+                            <div id="word-forms-container">
+                                {{{forms}}}
+                            </div>
+                            {{/has_forms}}
+                        </div>
+                    {{/words}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer bg-dark text-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col col-md-2 text-center" id="info">
+                    <div>
+                        <b>FSCA</b> by fergus
+                    </div>
+                    <div>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+                        <a style="text-decoration: none; cursor: pointer;" onclick="$('#licenseModal').modal()">(?)</a>
+                    </div>
+                    <div>
+                        <a href="https://twitter.com/fergcb">twitter</a>
+                        | <a href="https://github.com/FergusBentley">github</a>
+                    </div>
+
+                </div>
+                <div class="col col-md" id="timelineContainer">
+                    <div class="row">
+                        <div class="col-sm-5"></div>
+                        <div class="col-md-2">
+                            <div class="timeline-label centre-block">Time: <span id="timeline-value"></span></div>
+                        </div>
+                        <div class="col-sm-5"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-xl-8">
+                            <input id="timeline" type="text" />
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" tabindex="-1" role="dialog" id="licenseModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">License</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+                    <br />
+                    <br />
+                    <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">FSCA</span>
+                     by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Fergus Bentley</span>
+                     is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="lib/jquery-csv.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Other libraries-->
+    <script src="js/gui/timelineSlider.js"></script>
+    <script src="lib/mustache.min.js"></script>
+
+
+    <!-- SCA scripts -->
+    <script src="js/sca/class.Word.js"></script>
+    <script src="js/sca/class.Dictionary.js"></script>
+    <script src="js/sca/class.Language.js"></script>
+    <script src="js/sca/sca.js"></script>
+
+
+    <!-- GUI/Layout scripts -->
+    <script src="js/gui/init_render.js"></script>
+
+</body>
+
+</html>
