@@ -21,6 +21,18 @@ ul.tree ul,
     color: var(--colour-med-light);
 }
 
+.tree li,
+.tree ul {
+    display: block;
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+.tree span,
+.tree a {
+    display: inline-block;
+    width: 100%;
+}
 
 .tree span {
     margin-left: -14px;
@@ -28,8 +40,14 @@ ul.tree ul,
 }
 
 .tree a {
+    margin-left: -2px;
+    padding-left: 5px;
     color: white;
     cursor: pointer;
+}
+
+.tree a.selected {
+    color: var(--colour-accent-muted);
 }
 
 /* Highlight on hover */
@@ -40,6 +58,7 @@ ul.tree ul,
 .tree a:hover {
     color: var(--colour-accent);
     text-decoration: none;
+    background-color: var(--colour-med);
 }
 
 /* Create the caret/arrow with a unicode, and style it */

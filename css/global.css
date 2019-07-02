@@ -103,7 +103,7 @@ html, body {
 
 #dictionary li:hover {
     color: var(--colour-accent);
-    background-color: var(--colour-dark-border);
+    background-color: var(--colour-med);
 }
 
 #dictionary li > .tickbox {

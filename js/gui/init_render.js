@@ -16,6 +16,8 @@ function updateLanguages() {
     $('#languages a').click(function(e) {
         e.preventDefault();
         window.location.hash = $(this).attr("href");
+        $("#languages a").removeClass("selected");
+        $(this).addClass("selected");
         updateSelectedLanguage();
         updateDictionary();
     });
