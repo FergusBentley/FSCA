@@ -1,67 +1,127 @@
-/* Remove default bullets */
-.tree ul {
-    list-style-type: none !important;
-}
-
-ul.tree ul,
-.tree ul ul {
-    margin-left: 20px;
-}
-
-/* Remove margins and padding from the parent ul */
 .tree {
     margin: 0;
-    margin-left: 20px;
     padding: 0;
+    cursor: default;
 }
 
-/* Style the tree item */
+.tree ul {
+    margin-left: 30px;
+}
+
 .tree li {
-    cursor: default;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.tree li.selected {
+    color: var(--colour-accent-muted);
+}
+
+.tree li.language {
+    padding-left: 30px;
+}
+
+.tree .group > span {
+    cursor: pointer;
+    vertical-align: top;
+    line-height: 30px;
+}
+
+.tree .group > span[data-target] {
+    color: white;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 30px;
+    padding-right: 5px;
+    padding-left: 35px;
+    margin-left: -35px;
+}
+
+.tree .group > span,
+.tree li.language {
     color: var(--colour-med-light);
 }
 
-
-.tree span {
-    margin-left: -14px;
+.tree li.language[data-target],
+.tree span[data-target] {
     cursor: pointer;
-}
-
-.tree a {
     color: white;
-    cursor: pointer;
 }
 
-/* Highlight on hover */
-.tree span:hover {
-    color: lightgrey;
-}
-
-.tree a:hover {
+.tree li.language[data-target]:hover,
+.tree .group > span[data-target]:hover {
+    background-color: var(--colour-med);
     color: var(--colour-accent);
-    text-decoration: none;
 }
 
-/* Create the caret/arrow with a unicode, and style it */
-.tree span::before {
-    position: relative;
-    left: -6px;
-    content: "⮞";
+.tree li.language[data-target].selected,
+.tree .group > span[data-target].selected {
+    color: var(--colour-accent-muted);
+}
+
+.tree .group > span:hover {
     color: white;
-    display: inline-block;
 }
 
-/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
-.tree span.active::before {
-    transform: rotate(90deg);
-}
-
-/* Hide the nested list */
-.tree span:not(.active) + ul {
-    display: none;
-}
-
-/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
-.tree span.active + ul {
+.tree li.language::before {
+    box-sizing: border-box;
     display: block;
+    width: 14px;
+    height: 2px;
+    background-color: var(--colour-muted);
+    position: relative;
+    left: -24px;
+    top: 14px;
+    content: "";
+}
+
+.tree .group:not(.active) > ul {
+    display: none;
+    padding-left: 20px;
+}
+
+.tree .group.active > ul {
+    display: block;
+}
+
+.tree .checkbox {
+    margin: 0 5px;
+    display: inline-block;
+    box-sizing: border-box;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--colour-accent);
+    top: 5px;
+    cursor: pointer;
+}
+
+.tree .checkbox:hover {
+    background-color: var(--colour-med);
+}
+
+.tree .group.active > .checkbox {
+    background-color: var(--colour-accent);
+}
+
+.tree .group.active > .checkbox:hover {
+    background-color: var(--colour-accent-muted);
+}
+
+.tree .group > .checkbox::before {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-weight: 900;
+    position: absolute;
+    top: -4px;
+    left: 0;
+    content: "add";
+    color: var(--colour-accent);
+    z-index: 1000;
+}
+
+.tree .group.active > .checkbox::before {
+    content: "remove";
+    color: white;
 }

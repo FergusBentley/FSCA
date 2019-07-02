@@ -9,13 +9,25 @@ function updateLanguages() {
 
     $("#languages").html(rootLanguage.asTree());
 
-    $('#languages span').click(function(){
-        $(this).toggleClass("active");
+    $('#languages .group > span').click(function(e){
+        e.stopPropagation();
+        if ($(this).attr("data-target") == undefined)
+            $(this).parent().toggleClass("active");
+        else
+            $(this).parent().addClass("active");
     });
 
-    $('#languages a').click(function(e) {
+    $('#languages .group > .checkbox').click(function(e){
+        e.stopPropagation();
+        $(this).parent().toggleClass("active");
+    });
+
+    $('#languages .language, #languages .group > span[data-target]').click(function(e) {
         e.preventDefault();
-        window.location.hash = $(this).attr("href");
+        e.stopPropagation();
+        window.location.hash = "#" + $(this).attr("data-target");
+        $(".language, .group > span[data-target]").removeClass("selected");
+        $(this).addClass("selected");
         updateSelectedLanguage();
         updateDictionary();
     });

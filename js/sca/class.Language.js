@@ -29,21 +29,25 @@ class Language {
     }
 
     asTree() {
-        let res = "<li>";
-        let tag = this.longName;
-        if (!this.isReference)
-            tag = `<a href="#${this.shortName}">${tag}</a>`;
+        let res = "";
         if (this.children.length > 0) {
-            res += `<span>${tag}</span>`;
-            res += "<ul>";
+            res += `
+                <li class="group">
+                    <div class="checkbox"></div>
+                    <span ${(this.isReference ? "" : `data-target="${this.shortName}"`)}>${this.longName}</span>
+                    <ul>
+            `;
             for (const c of this.children) {
                 res += c.asTree();
             }
-            res += "</ul>"
+            res += "</li></ul>"
         }
         else {
-            res += tag;
+            if (this.isReference)
+                res = `<li class="language">${this.longName}</li>`;
+            else
+                res = `<li class="language" data-target="${this.shortName}">${this.longName}</li>`;
         }
-        return res + "</li>";
+        return res;
     }
 }
