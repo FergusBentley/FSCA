@@ -25,14 +25,18 @@ html, body {
     min-height: 100%;
     height:auto !important;
     height: 100%;
+    max-height: 100%;
+    overflow-y: hidden;
 }
 
 .main .col {
     border-right: 1px solid var(--colour-dark-border);
     padding-top: 10px;
-
     max-height: 100%;
-    overflow-x: none;
+}
+
+.main .col.scroll {
+    height: 100vh;
     overflow-y: scroll;
 }
 
@@ -48,7 +52,7 @@ html, body {
 }
 
 .word-details:last-child {
-    margin-bottom: 120px;
+    margin-bottom: 20px;
 }
 
 .bg-dark hr {
@@ -142,6 +146,11 @@ html, body {
     font-size: 16px;
     line-height: 1.5em;
     font-family: monospace;
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--colour-dark-border);
 }
 
 #info a {
