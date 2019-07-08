@@ -19,12 +19,11 @@ class Word {
     enumerateForms(p) {
         let path = p || [];
         let fs = {};
-        if (this.forms != undefined) {
-            for (var key in this.forms) {
-                if (this.forms.hasOwnProperty(key)) {
-                    let np = path.concat([key]);
-                    Object.assign(fs, this.forms[key].enumerateForms(np));
-                }
+        if (this.forms != undefined && Object.keys(this.forms).length > 0) {
+            for (var key of Object.keys(this.forms)) {
+                let np = path.concat([key]);
+                console.log(np);
+                Object.assign(fs, this.forms[key].enumerateForms(np));
             }
         }
         else {
@@ -108,7 +107,7 @@ class Word {
 
             for(let c = 0; c < cols; c++) {
                 let i = r * cols + c;
-                let w = Object.values(ef)[i].gloss;
+                let w = Object.values(ef)[i].render();
                 res += `<td>${w}</td>`;
             }
             res += `</tr>`
