@@ -278,7 +278,8 @@
         peg$c76 = peg$literalExpectation("'", false),
         peg$c77 = ",",
         peg$c78 = peg$literalExpectation(",", false),
-        peg$c79 = function(stress, ss) {
+        peg$c79 = function(st, ss) {
+                    let stress = st == "'" ? "primary" : (st == "," ? "secondary" : "unstressed");
                     return new Syllable(ss, stress);
                 },
         peg$c80 = function(s, wn) { return [s, wn]; },

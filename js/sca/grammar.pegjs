@@ -286,8 +286,9 @@ word
     / wordDerivation
 
 wordSyllable
-    = stress:("'" / ",")? ss:wordSound+
+    = st:("'" / ",")? ss:wordSound+
         {
+            let stress = st == "'" ? "primary" : (st == "," ? "secondary" : "unstressed");
             return new Syllable(ss, stress);
         }
 
