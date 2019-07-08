@@ -3,6 +3,7 @@ class Word {
     constructor(gloss, syllables, definition) {
         this.gloss = gloss;
         this.syllables = syllables;
+        this.definition = definition;
         this.forms = {};
         this.time = 0;
         this.soundChanges = []; // Inline sound changes
@@ -19,16 +20,28 @@ class Word {
     render() {
         let res = "";
         for (const syl of this.syllables) {
-            if (syl.stress == "primary") res += "ˈ";
-            else if (syl.stress == "secondary") res += "ˌ";
+            if (syl instanceof Syllable) {
+                if (syl.stress == "primary") res += "ˈ";
+                else if (syl.stress == "secondary") res += "ˌ";
 
-            for (const snd of syl.sounds) {
-                res += snd.render();
+                for (const snd of syl.sounds) {
+                    res += snd.render();
+                }
+
+                res += "."
             }
-
-            res += "."
+            else {
+                let d = syl;
+                if (d[0] === ">") {
+                    res += this.forms[d.substring(1)].render();
+                }
+                else {
+                    // TODO: derivation's source is not a form of this word
+                }
+            }
         }
-        return res.substring(0, res.length - 1);
+        if (res[res.length - 1] === ".") res = res.substring(0, res.length - 1);
+        return res;
     }
 
     enumerateForms(p) {

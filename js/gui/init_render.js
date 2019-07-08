@@ -106,8 +106,9 @@ function renderWordDetails() {
             words: words.map(w => ({
                 gloss: w.gloss,
                 etymology: w.etymology,
+                pronunciation: "/" + w.render() + "/",
                 definition: w.definition,
-                has_forms: w.forms != undefined,
+                has_forms: w.forms != undefined && Object.keys(w.forms).length !== 0,
                 forms: w.tabulateForms()
             }))
         };

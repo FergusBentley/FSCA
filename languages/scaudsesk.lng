@@ -2,7 +2,7 @@
 
 -lang;pgmc;Proto Germanic
 
-@tribe;[>NOM.SG];people, tribe
+@tribe;[>NOM];People, tribe
     >NOM;[>SG]
         >SG;'θeu.ðɔ:
         >PL;'θeu.ðɔ::z
@@ -22,7 +22,7 @@
         >SG;'θeu.ðɔ:
         >PL;'θeu.ðɔ::.miz
 
-@DEM;[>NOM];demonstrative, "that"
+@DEM;[>NOM];Demonstrative, "that"
 	>NOM;[>M]
 		>M;[>SG]
 			>SG;sɑ
@@ -80,3 +80,6 @@
 ~lang;ofri<ing;Old Frisian
 ~lang;oeng<ing;Old English
 -lang;othj<ing;Old Thjudesk
+
+// Borrowing from Old English
+@shallow;skæɑld;Having little depth, "shallow"
