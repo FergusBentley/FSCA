@@ -116,7 +116,7 @@ function renderWordDetails() {
 }
 
 
-$(function(){
+function init() {
     window.location.hash = "";
     updateLanguages();
     updateDictionary();
@@ -124,4 +124,4 @@ $(function(){
     wordTemplate = $("#words-details").html();
     updateSelectedLanguage();
     renderWordDetails();
-});
+}
