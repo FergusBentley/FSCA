@@ -5,25 +5,16 @@ class Sound {
     }
 
     static clone(sound) {
-        return Object.assign(Object.create(Object.getPrototypeOf(sound)), sound)
+        let copy = Object.assign(Object.create(Object.getPrototypeOf(sound)), sound);
+        copy.qualities = Object.assign([], this.qualities);
+        return copy;
     }
 
     render() {
         let res = this.glyph;
-        for (const q of this.qualities) {
-            switch(q) {
-                case "nasal":
-                    res += "̃"; // Combining tilde
-                    break;
-                case "long":
-                    res += "ː";
-                case "overlong":
-                    res += "ː";
-                    break;
-                default:
-                    break;
-            }
-        }
+        if (this.qualities.includes("nasal")) res += "̃"; // Combining tilde
+        if (this.qualities.includes("overlong")) res += "ːː";
+        else if (this.qualities.includes("long")) res += "ː";
         return res;
     }
 }

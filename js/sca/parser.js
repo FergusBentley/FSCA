@@ -209,7 +209,7 @@
         peg$c33 = /^[iy\u0268\u0289\u026Fu\u026A\u028F\u028Ae\xF8\u0258\u0275\u0264o\u0259\u025B\u0153\u025C\u025E\u028C\u0254\xE6\u0250a\u0276\u0251\u0252pbtd\u0288\u0256c\u025Fkgq\u0262\u0294m\u0271n\u0273\u0272\u014B\u0274\u0299r\u0280\u027E\u027D\u0278\u03B2fv\u03B8\xF0sz\u0283\u0292\u0282\u0290\xE7\u029Dx\u0263\u03C7\u0281\u0127\u0295h\u0266\u026C\u026Ew\u028B\u0279\u027Bj\u0270l\u026D\u028E\u029F]/,
         peg$c34 = peg$classExpectation(["i", "y", "\u0268", "\u0289", "\u026F", "u", "\u026A", "\u028F", "\u028A", "e", "\xF8", "\u0258", "\u0275", "\u0264", "o", "\u0259", "\u025B", "\u0153", "\u025C", "\u025E", "\u028C", "\u0254", "\xE6", "\u0250", "a", "\u0276", "\u0251", "\u0252", "p", "b", "t", "d", "\u0288", "\u0256", "c", "\u025F", "k", "g", "q", "\u0262", "\u0294", "m", "\u0271", "n", "\u0273", "\u0272", "\u014B", "\u0274", "\u0299", "r", "\u0280", "\u027E", "\u027D", "\u0278", "\u03B2", "f", "v", "\u03B8", "\xF0", "s", "z", "\u0283", "\u0292", "\u0282", "\u0290", "\xE7", "\u029D", "x", "\u0263", "\u03C7", "\u0281", "\u0127", "\u0295", "h", "\u0266", "\u026C", "\u026E", "w", "\u028B", "\u0279", "\u027B", "j", "\u0270", "l", "\u026D", "\u028E", "\u029F"], false, false),
         peg$c35 = function(s) {
-                    return IPA.allSounds[s];
+                    return Sound.clone(IPA.allSounds[s]);
                 },
         peg$c36 = function(s, ms) {
                     ms.forEach(function(mod) {
@@ -2120,20 +2120,19 @@
         }
 
         function applyModifier(sound, modifier) {
-            let ns = Sound.clone(sound);
             switch(modifier) {
                 case "~":
-                    ns.qualities.push("nasal");
+                    sound.qualities.push("nasal");
                     break;
                 case "::":
-                    if (ns.qualities.includes("long"))
-                        ns.qualities[ns.qualities.indexOf("long")] = "overlong";
-                    else ns.qualities.push("overlong");
+                    if (sound.qualities.includes("long"))
+                        sound.qualities[sound.qualities.indexOf("long")] = "overlong";
+                    else sound.qualities.push("overlong");
                     break;
                 case ":":
-                    if (ns.qualities.includes("long"))
-                        ns.qualities[ns.qualities.indexOf("long")] = "overlong";
-                    else ns.qualities.push("long");
+                    if (sound.qualities.includes("long"))
+                        sound.qualities[sound.qualities.indexOf("long")] = "overlong";
+                    else sound.qualities.push("long");
                     break;
                 case "<":
 
@@ -2150,7 +2149,7 @@
                 default:
                     break;
             }
-            return ns;
+            return sound;
         }
 
 

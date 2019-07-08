@@ -91,20 +91,19 @@
     }
 
     function applyModifier(sound, modifier) {
-        let ns = Sound.clone(sound);
         switch(modifier) {
             case "~":
-                ns.qualities.push("nasal");
+                sound.qualities.push("nasal");
                 break;
             case "::":
-                if (ns.qualities.includes("long"))
-                    ns.qualities[ns.qualities.indexOf("long")] = "overlong";
-                else ns.qualities.push("overlong");
+                if (sound.qualities.includes("long"))
+                    sound.qualities[sound.qualities.indexOf("long")] = "overlong";
+                else sound.qualities.push("overlong");
                 break;
             case ":":
-                if (ns.qualities.includes("long"))
-                    ns.qualities[ns.qualities.indexOf("long")] = "overlong";
-                else ns.qualities.push("long");
+                if (sound.qualities.includes("long"))
+                    sound.qualities[sound.qualities.indexOf("long")] = "overlong";
+                else sound.qualities.push("long");
                 break;
             case "<":
 
@@ -121,7 +120,7 @@
             default:
                 break;
         }
-        return ns;
+        return sound;
     }
 }
 
@@ -215,7 +214,7 @@ sound
 ipa_literal
     = s:[iyɨʉɯuɪʏʊeøɘɵɤoəɛœɜɞʌɔæɐaɶɑɒpbtdʈɖcɟkgqɢʔmɱnɳɲŋɴʙrʀɾɽɸβfvθðszʃʒʂʐçʝxɣχʁħʕhɦɬɮwʋɹɻjɰlɭʎʟ]
         {
-            return IPA.allSounds[s];
+            return Sound.clone(IPA.allSounds[s]);
         }
 
 modified_sound
