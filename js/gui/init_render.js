@@ -7,7 +7,8 @@ let rootLanguage;
 function updateLanguages() {
     $("#languages").empty();
 
-    $("#languages").html(rootLanguage.asTree());
+    if (rootLanguage != undefined)
+        $("#languages").html(rootLanguage.asTree());
 
     $('#languages .group > span').click(function(e){
         e.stopPropagation();
@@ -34,22 +35,25 @@ function updateLanguages() {
 }
 
 function updateSelectedLanguage() {
-    let name = window.location.hash.substring(1);
-    if (rootLanguage.shortName == name) selectedLanguage = rootLanguage;
-    else selectedLanguage = rootLanguage.findChild(name);
-    if (selectedLanguage != undefined) {
-        $("#language-details").show();
-        languageHash = {
-            name: selectedLanguage.longName,
-            code: selectedLanguage.shortName,
-            ancestors: selectedLanguage.getAncestors(),
-            children: selectedLanguage.children
-        };
-        $("#language-details").html(Mustache.render(languageTemplate, languageHash));
-        selectedWords = selectedWords.filter(w => selectedLanguage.dictionary.contains(w))
-        renderWordDetails();
+    $("#language-details").hide();
+    if (rootLanguage != undefined) {
+        let name = window.location.hash.substring(1);
+        if (rootLanguage.shortName == name) selectedLanguage = rootLanguage;
+        else selectedLanguage = rootLanguage.findChild(name);
+        if (selectedLanguage != undefined) {
+            $("#language-details").show();
+            languageHash = {
+                name: selectedLanguage.longName,
+                code: selectedLanguage.shortName,
+                ancestors: selectedLanguage.getAncestors(),
+                children: selectedLanguage.children
+            };
+            $("#language-details").html(Mustache.render(languageTemplate, languageHash));
+            selectedWords = selectedWords.filter(w => selectedLanguage.dictionary.contains(w))
+            renderWordDetails();
+            $("#language-details").show();
+        }
     }
-    else $("#language-details").hide();
 }
 
 // Make dictionary words selectable

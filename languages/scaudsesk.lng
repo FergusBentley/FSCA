@@ -1,0 +1,24 @@
+// this is a comment
+
+@tribe;[>NOM.SG];people, tribe
+    >NOM;[>SG]
+        >SG;'θeu.ðɔ:
+        >PL;'θeu.ðɔ::z
+    >VOC;[>SG]
+        >SG;'θeu.ðɔ:~
+        >PL;'θeu.ðɔ:z
+    >ACC;[>SG]
+        >SG;'θeu.ðɔ:
+        >PL;'θeu.ðɔ::z
+    >GEN;[>SG]
+        >SG;'θeu.ðɔ:z
+        >PL;'θeu.ðɔ::~
+    >DAT;[>SG]
+        >SG;'θeu.ðɔ:i
+        >PL;'θeu.ðɔ::.mɑz
+    >INS;[>SG]
+        >SG;'θeu.ðɔ:
+        >PL;'θeu.ðɔ::.miz
+
+/# this is a sound change label
+[a]j/[e]

@@ -1,9 +1,19 @@
 class Word {
 
-    constructor(gloss, syllables, forms) {
+    constructor(gloss, syllables, definition) {
         this.gloss = gloss;
         this.syllables = syllables;
-        this.forms = forms;
+        this.forms = {};
+        this.time = 0;
+        this.soundChanges = []; // Inline sound changes
+    }
+
+    addForm(word) {
+        this.forms[word.gloss] = word;
+    }
+
+    addSoundChange(sc) {
+        this.soundChanges.push(sc);
     }
 
     enumerateForms(p) {

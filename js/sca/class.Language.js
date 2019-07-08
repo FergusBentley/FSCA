@@ -6,10 +6,24 @@ class Language {
         this.parent = parent || null;
         this.isReference = ref || false;
         this.dictionary = new Dictionary();
+        this.soundChanges = [];
+        this.time = 0;
+
         if (this.parent != null) {
             this.dictionary.words = Object.assign({}, this.parent.dictionary.words);
+            this.time = this.parent.time;
             this.parent.children.push(this);
         }
+    }
+
+    addSoundChange(sc) {
+        sc.time = this.time++;
+        this.soundChanges.push(sc);
+    }
+
+    addWord(word) {
+        word.time = this.time++;
+        this.dictionary.addWord(word);
     }
 
     getAncestors() {
