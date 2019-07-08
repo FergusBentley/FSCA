@@ -43,6 +43,7 @@ $(function(){
     // rootLanguage = wgmc;
 
     jQuery.get("languages/scaudsesk.lng", function(data) {
-        console.log(FSCAParser.parse(data));
+        let parsed = FSCAParser.parse(data);
+        rootLanguage = parsed.root;
     });
 });

@@ -1,5 +1,7 @@
 // this is a comment
 
+-lang;pgmc;Proto Germanic
+
 @tribe;[>NOM.SG];people, tribe
     >NOM;[>SG]
         >SG;'θeu.ðɔ:
@@ -20,5 +22,9 @@
         >SG;'θeu.ðɔ:
         >PL;'θeu.ðɔ::.miz
 
-/# this is a sound change label
-[a]j/[e]
+~lang;wgmc<pgmc;West Germanic
+~lang;ing<wgmc;Ingvaeonic
+
+~lang;ofri<ing;Old Frisian
+~lang;oeng<ing;Old English
+-lang;othj<ing;Old Thjudesk

@@ -1,5 +1,5 @@
 {
-    var rootLanguage, currentLanguage, cats = {};
+    var rootLanguage, currentLanguage, cats = {}, langs = {};
 
     class Conjunction {
         constructor(factors) {
@@ -128,14 +128,18 @@
 initial
     = head:statement tail:(newline+ s:statement {return s})* newline*
         {
-            tail.unshift(head)
-            return tail;
+            tail.unshift(head);
+            return {
+                "root": rootLanguage,
+                "statements": tail
+            };
         }
 
 
 statement
     = soundChange
     / rootDefinition
+    / languageMarker
     / comment
 
 
@@ -236,7 +240,9 @@ target
 rootDefinition
 	= "@" wd:wordDefinition es:(definitionExtension*)
 		{
-            return createWord(wd, es);
+            let word = createWord(wd, es);
+            currentLanguage.addWord(word);
+            return word;
 		}
 
 wordDefinition
@@ -303,3 +309,22 @@ wordDerivation
 
 description
     = $( [^\n\r]+ )
+
+
+languageMarker
+    = r:("-" / "~") "lang;" sn:shortName p:("<" p:shortName {return p;})? ";" ln:longName
+        {
+            let reference = r == "~";
+            let shortName = sn;
+            let longName = ln;
+            let parent = langs[p];
+            let lang = new Language(sn, ln, parent, reference);
+            langs[sn] = lang;
+            if (rootLanguage == undefined) rootLanguage = lang;
+            currentLanguage = lang;
+            return lang;
+        }
+
+shortName = $( [a-z]+ )
+
+longName = $( [A-Za-z ]+ )

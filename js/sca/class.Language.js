@@ -9,7 +9,7 @@ class Language {
         this.soundChanges = [];
         this.time = 0;
 
-        if (this.parent != null) {
+        if (this.parent !== null) {
             this.dictionary.words = Object.assign({}, this.parent.dictionary.words);
             this.time = this.parent.time;
             this.parent.children.push(this);
