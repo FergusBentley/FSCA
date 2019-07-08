@@ -250,7 +250,7 @@
         peg$c61 = function(gloss, syls, d) { return d; },
         peg$c62 = function(gloss, syls, def) {
         			let desc = def || "";
-                    return [gloss, syls, def];
+                    return new Word(gloss, syls, def);
         		},
         peg$c63 = function(ws, de) {
         			de["indent"] = ws;
@@ -2042,69 +2042,76 @@
             }
         }
 
-        function createWord(wd, extensions) {
-            let exts = nestBlocks(groupExtensions(extensions));
-            let word = new Word(wd[0], wd[1], wd[2]);
+        function createWord(word, extensions) {
+            let exts = groupExtensions(extensions);
             nestExtensions(word, exts);
             return word;
 
             // return groupExtensions(extensions);
         }
 
-        function evaluateExtension(ext) {
-            if (ext instanceof SoundChange) return ext;
-            return new Word(ext[0], ext[1], ext[2]);
+        function groupExtensions(extensions) {
+            var groups;
+            do {
+                groups = groupByDepth(extensions);
+                extensions = nestGroups(groups);
+            }
+            while (groups.minIndent < groups.maxIndent);
+            return extensions;
         }
 
-        function groupExtensions(extensions) {
-            // Group by indentation level
+        function groupByDepth(extensions) {
             let groups = [];
+            groups.maxIndent = 0;
+            groups.minIndent = Infinity;
             let currentGroup = [];
             currentGroup.indent = 0;
-            extensions.forEach(function(ext) {
+            for (const ext of extensions) {
                 if (ext.indent == currentGroup.indent) {
-                    currentGroup.push(evaluateExtension(ext.extension));
+                    currentGroup.push(ext.extension);
                 }
                 else {
-                    if (currentGroup.length > 0) groups.push(currentGroup);
-                    currentGroup = [evaluateExtension(ext.extension)];
+                    if (currentGroup.length > 0) {
+                        groups.push(currentGroup);
+                    }
+                    currentGroup = [ext.extension];
                     currentGroup.indent = ext.indent;
+                    if (currentGroup.indent > groups.maxIndent)
+                        groups.maxIndent = currentGroup.indent;
+                    if (currentGroup.indent < groups.minIndent)
+                            groups.minIndent = currentGroup.indent;
                 }
-            });
+            }
             if (currentGroup.length > 0) groups.push(currentGroup);
-
-            // Group by increasing indentation
-            let blocks = [];
-            let currentBlock = [];
-            let currentIndent = 0;
-            groups.forEach(function(group) {
-                if (group.indent > currentIndent) {
-                    currentIndent = group.indent;
-                    currentBlock.push(group);
-                }
-                else {
-                    if(currentBlock.length > 0) blocks.push(currentBlock);
-                    currentBlock = [group];
-                    currentIndent = group.indent;
-                }
-            });
-            if(currentBlock.length > 0) blocks.push(currentBlock);
-
-            return blocks;
+            if (currentGroup.indent > groups.maxIndent)
+                groups.maxIndent = currentGroup.indent;
+            if (currentGroup.indent < groups.minIndent)
+                    groups.minIndent = currentGroup.indent;
+            return groups;
         }
 
-        function nestBlocks(blocks) {
-            let nestedBlocks = [];
-            blocks.forEach(function(block) {
-                let nested = block.reduceRight(function(acc, curr) {
-                    let parent = curr[curr.length - 1];
-                    if (parent instanceof SoundChange) throw "Sound change definitions cannot have extensions.";
-                    nestExtensions(parent, acc);
-                    return curr;
-                });
-                nestedBlocks.push(nested[0]);
-            });
-            return nestedBlocks;
+        function nestGroups(groups) {
+            let nested = [];
+            let prev = null;
+            for (const group of groups) {
+                if (group.indent == groups.maxIndent) {
+                    if (group.indent != groups.minIndent) {
+                        if (prev != null) {
+                            nestExtensions(prev, group);
+                        }
+                        else throw "Can't nest extensions: no preceeding group.";
+                    }
+                    else nested = nested.concat(group);
+                }
+                else {
+                    nested = nested.concat(group.map(x => ({
+                        "extension": x,
+                        "indent": group.indent
+                    })));
+                    prev = nested[nested.length - 1].extension;
+                }
+            }
+            return nested;
         }
 
         function nestExtensions(parent, children) {

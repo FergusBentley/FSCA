@@ -22,6 +22,58 @@
         >SG;'θeu.ðɔ:
         >PL;'θeu.ðɔ::.miz
 
+@DEM;[>NOM];demonstrative, "that"
+	>NOM;[>M]
+		>M;[>SG]
+			>SG;sɑ
+			>PL;θɑi
+		>F;[>SG]
+			>SG;sɔ:
+			>PL;θɔ::z
+		>N;[>SG]
+			>SG;θɑt
+			>PL;θɔ:
+	>ACC;[>M]
+		>M;[>SG]
+			>SG;θa.nɔ~:
+			>PL;θɑnz
+		>F;[>SG]
+			>SG;θɔ:~
+			>PL;θɔ:z
+		>N;[>SG]
+			>SG;θɑt
+			>PL;θɔ:
+	>GEN;[>M]
+		>M;[>SG]
+			>SG;θɑs
+			>PL;θɑi.zɔ::~
+		>F;[>SG]
+			>SG;θɑi.zɔ:z
+			>PL;θɑi.zɔ::~
+		>N;[>SG]
+			>SG;θɑs
+			>PL;θɑi.zɔ::~
+	>DAT;[>M]
+		>M;[>SG]
+			>SG;θɑm.mɑi
+			>PL;θɑi.mɑz
+		>F;[>SG]
+			>SG;θɑi.zɔ:i
+			>PL;θɑi.mɑz
+		>N;[>SG]
+			>SG;θɑm.mɑi
+			>PL;θɑi.mɑz
+	>INS;[>M]
+		>M;[>SG]
+			>SG;θɑ.nɔ:
+			>PL;θɑi.miz
+		>F;[>SG]
+			>SG;θɑi.zɔ:
+			>PL;θɑi.miz
+		>N;[>SG]
+			>SG;θɑ.nɔ:
+			>PL;θɑi.miz
+
 ~lang;wgmc<pgmc;West Germanic
 ~lang;ing<wgmc;Ingvaeonic
 
