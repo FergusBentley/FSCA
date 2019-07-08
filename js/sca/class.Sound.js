@@ -7,6 +7,25 @@ class Sound {
     static clone(sound) {
         return Object.assign(Object.create(Object.getPrototypeOf(sound)), sound)
     }
+
+    render() {
+        let res = this.glyph;
+        for (const q of this.qualities) {
+            switch(q) {
+                case "nasal":
+                    res += "̃"; // Combining tilde
+                    break;
+                case "long":
+                    res += "ː";
+                case "overlong":
+                    res += "ː";
+                    break;
+                default:
+                    break;
+            }
+        }
+        return res;
+    }
 }
 
 class Consonant extends Sound {

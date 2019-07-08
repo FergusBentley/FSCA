@@ -16,13 +16,27 @@ class Word {
         this.soundChanges.push(sc);
     }
 
+    render() {
+        let res = "";
+        for (const syl of this.syllables) {
+            if (syl.stress == "primary") res += "ˈ";
+            else if (syl.stress == "secondary") res += "ˌ";
+
+            for (const snd of syl.sounds) {
+                res += snd.render();
+            }
+
+            res += "."
+        }
+        return res.substring(0, res.length - 1);
+    }
+
     enumerateForms(p) {
         let path = p || [];
         let fs = {};
         if (this.forms != undefined && Object.keys(this.forms).length > 0) {
-            for (var key of Object.keys(this.forms)) {
+            for (const key of Object.keys(this.forms)) {
                 let np = path.concat([key]);
-                console.log(np);
                 Object.assign(fs, this.forms[key].enumerateForms(np));
             }
         }
