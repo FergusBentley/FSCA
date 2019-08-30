@@ -7,6 +7,7 @@ let rootLanguage;
 function updateLanguages() {
     $("#languages").empty();
 
+    // Display langage tree
     if (rootLanguage != undefined)
         $("#languages").html(rootLanguage.asTree());
 
