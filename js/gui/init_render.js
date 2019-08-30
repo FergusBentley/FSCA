@@ -7,8 +7,8 @@ let rootLanguage;
 function updateLanguages() {
     $("#languages").empty();
 
-    // Render all languages in the family as an expandable tree
-    $("#languages").html(rootLanguage.asTree());
+    if (rootLanguage != undefined)
+        $("#languages").html(rootLanguage.asTree());
 
     // Make the languaes expandable
     $('#languages .group > span').click(function(e){
@@ -38,22 +38,25 @@ function updateLanguages() {
 
 // Set the selected language and display its details
 function updateSelectedLanguage() {
-    let name = window.location.hash.substring(1);
-    if (rootLanguage.shortName == name) selectedLanguage = rootLanguage;
-    else selectedLanguage = rootLanguage.findChild(name);
-    if (selectedLanguage != undefined) {
-        $("#language-details").show();
-        languageHash = {
-            name: selectedLanguage.longName,
-            code: selectedLanguage.shortName,
-            ancestors: selectedLanguage.getAncestors(),
-            children: selectedLanguage.children
-        };
-        $("#language-details").html(Mustache.render(languageTemplate, languageHash));
-        selectedWords = selectedWords.filter(w => selectedLanguage.dictionary.contains(w))
-        renderWordDetails();
+    $("#language-details").hide();
+    if (rootLanguage != undefined) {
+        let name = window.location.hash.substring(1);
+        if (rootLanguage.shortName == name) selectedLanguage = rootLanguage;
+        else selectedLanguage = rootLanguage.findChild(name);
+        if (selectedLanguage != undefined) {
+            $("#language-details").show();
+            languageHash = {
+                name: selectedLanguage.longName,
+                code: selectedLanguage.shortName,
+                ancestors: selectedLanguage.getAncestors(),
+                children: selectedLanguage.children
+            };
+            $("#language-details").html(Mustache.render(languageTemplate, languageHash));
+            selectedWords = selectedWords.filter(w => selectedLanguage.dictionary.contains(w))
+            renderWordDetails();
+            $("#language-details").show();
+        }
     }
-    else $("#language-details").hide();
 }
 
 // Render words in the current language in the Dictionary pane
@@ -109,8 +112,9 @@ function renderWordDetails() {
             words: words.map(w => ({
                 gloss: w.gloss,
                 etymology: w.etymology,
+                pronunciation: "/" + w.render() + "/",
                 definition: w.definition,
-                has_forms: w.forms != undefined,
+                has_forms: w.forms != undefined && Object.keys(w.forms).length !== 0,
                 forms: w.tabulateForms()
             }))
         };
@@ -119,7 +123,7 @@ function renderWordDetails() {
 }
 
 
-$(function(){
+function init() {
     window.location.hash = "";
     updateLanguages();
     updateDictionary();
@@ -127,4 +131,4 @@ $(function(){
     wordTemplate = $("#words-details").html();
     updateSelectedLanguage();
     renderWordDetails();
-});
+}

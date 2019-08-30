@@ -1,20 +1,56 @@
 class Word {
 
-    constructor(gloss, syllables, forms) {
+    constructor(gloss, syllables, definition) {
         this.gloss = gloss;
         this.syllables = syllables;
-        this.forms = forms;
+        this.definition = definition;
+        this.forms = {};
+        this.time = 0;
+        this.soundChanges = []; // Inline sound changes
+    }
+
+    addForm(word) {
+        this.forms[word.gloss] = word;
+    }
+
+    addSoundChange(sc) {
+        this.soundChanges.push(sc);
+    }
+
+    render() {
+        let res = "";
+        for (const syl of this.syllables) {
+            if (syl instanceof Syllable) {
+                if (syl.stress == "primary") res += "ˈ";
+                else if (syl.stress == "secondary") res += "ˌ";
+
+                for (const snd of syl.sounds) {
+                    res += snd.render();
+                }
+
+                res += "."
+            }
+            else {
+                let d = syl;
+                if (d[0] === ">") {
+                    res += this.forms[d.substring(1)].render();
+                }
+                else {
+                    // TODO: derivation's source is not a form of this word
+                }
+            }
+        }
+        if (res[res.length - 1] === ".") res = res.substring(0, res.length - 1);
+        return res;
     }
 
     enumerateForms(p) {
         let path = p || [];
         let fs = {};
-        if (this.forms != undefined) {
-            for (var key in this.forms) {
-                if (this.forms.hasOwnProperty(key)) {
-                    let np = path.concat([key]);
-                    Object.assign(fs, this.forms[key].enumerateForms(np));
-                }
+        if (this.forms != undefined && Object.keys(this.forms).length > 0) {
+            for (const key of Object.keys(this.forms)) {
+                let np = path.concat([key]);
+                Object.assign(fs, this.forms[key].enumerateForms(np));
             }
         }
         else {
@@ -98,7 +134,7 @@ class Word {
 
             for(let c = 0; c < cols; c++) {
                 let i = r * cols + c;
-                let w = Object.values(ef)[i].gloss;
+                let w = Object.values(ef)[i].render();
                 res += `<td>${w}</td>`;
             }
             res += `</tr>`

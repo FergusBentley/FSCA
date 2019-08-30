@@ -1,7 +1,7 @@
 
 * {
     --colour-primary: #ffab00;
-    --colour-secondary: #ffd740;
+    --colour-secondary: #ffcb5a;
     --colour-muted: #ffecb3;
     --colour-accent: #00BFA5;
     --colour-accent-muted: #26A69A;
@@ -35,13 +35,31 @@ html, body {
     max-height: 100%;
 }
 
+.main .col:last-child {
+    border: none;
+}
+
 .main .col.scroll {
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .main .col::-webkit-scrollbar {
-    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 7px;
+}
+
+
+.main .col.scroll::-webkit-scrollbar-track:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.main .col.scroll::-webkit-scrollbar-thumb {
+    background-color: var(--colour-muted);
+}
+
+.main .col.scroll::-webkit-scrollbar-thumb:hover {
+    background-color: var(--colour-secondary);
 }
 
 .word-details {
