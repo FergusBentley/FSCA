@@ -18,12 +18,14 @@ function updateTimelineSlider() {
 
     let diff = maxValue - minValue;
 
+    // Scale tick positions & label
     let ticks = [], tickLabels = [];
     for (var i = 0; i < values.length; i++) {
         ticks[i] = Math.round(((values[i] - minValue) / diff) * 100);
         tickLabels[i] = Math.abs(values[i]) + (values[i] < 0 ? " BCE" : (values[i] === 0 ? "" : " CE"));
     }
 
+    // Format tick/label pairs as a JSON object
     // Allows lookup of labels based on value
     let tickDictString = "{";
     for (let i = 0; i < values.length; i++) {
@@ -31,7 +33,7 @@ function updateTimelineSlider() {
         if (i < values.length - 1) tickDictString += ", ";
     }
     tickDictString += "}";
-
+    // Store object in timeline element
     $('#timeline').attr('data-slider-tick-dict', tickDictString);
 
     $('#timeline').slider({

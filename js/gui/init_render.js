@@ -3,12 +3,14 @@ let selectedLanguage = undefined,
 let languageTemplate, wordTemplate;
 let rootLanguage;
 
-// Make tree expandable
+// Update the languages pane and related elements
 function updateLanguages() {
     $("#languages").empty();
 
+    // Render all languages in the family as an expandable tree
     $("#languages").html(rootLanguage.asTree());
 
+    // Make the languaes expandable
     $('#languages .group > span').click(function(e){
         e.stopPropagation();
         if ($(this).attr("data-target") == undefined)
@@ -22,6 +24,7 @@ function updateLanguages() {
         $(this).parent().toggleClass("active");
     });
 
+    // If a language has data attached to it, make it selectable
     $('#languages .language, #languages .group > span[data-target]').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -33,6 +36,7 @@ function updateLanguages() {
     });
 }
 
+// Set the selected language and display its details
 function updateSelectedLanguage() {
     let name = window.location.hash.substring(1);
     if (rootLanguage.shortName == name) selectedLanguage = rootLanguage;
@@ -52,11 +56,12 @@ function updateSelectedLanguage() {
     else $("#language-details").hide();
 }
 
-// Make dictionary words selectable
+// Render words in the current language in the Dictionary pane
 function updateDictionary() {
 
     $('#dictionary').empty();
 
+    // If a language is selected, display all of its words
     if (selectedLanguage != null) {
         let words = Object.values(selectedLanguage.dictionary.words);
         for (const word of words) {
@@ -66,6 +71,7 @@ function updateDictionary() {
         }
     }
 
+    // Make words selectable
     $('#dictionary > li').append($("<span class='tickbox'>add</span>"));
 
     $('#dictionary > li').click(function(){
@@ -94,6 +100,7 @@ function updateDictionary() {
     });
 }
 
+// Show the details of selected words
 function renderWordDetails() {
     $("#words-details").empty();
     if (selectedWords.length > 0) {
